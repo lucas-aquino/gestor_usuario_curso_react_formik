@@ -5,6 +5,10 @@ import CardTitle from './components/CardTitle'
 import Button from './components/Button'
 import { useFormik } from 'formik'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import TextInput from './components/TextInput'
+import CheckboxInput from './components/CheckboxInput'
+import SelectInput from './components/SelectInput'
+import RadioInput from './components/RadioInput'
 
 
 function App() {
@@ -35,8 +39,12 @@ function App() {
       errors.correo = 'El correo no es valido'
     }
     
+    if(!values.radio) {
+      errors.radio = 'Es requerido'
+    }
+
     return errors
-  }
+  } 
 
   const formik = useFormik({
     initialValues: {
@@ -54,6 +62,7 @@ function App() {
     <div className='font-sans flex justify-center h-screen bg-slate-900 '>
       <div className='container flex flex-col justify-center h-100'>
         <div className='self-center'>
+          {/*
           <Card className='mb-8'>
             <CardTitle>Registro</CardTitle>
 
@@ -135,7 +144,7 @@ function App() {
             </form>
 
           </Card>
-
+          */}
 
           <Card className='mb-8'>
             <CardTitle>Registro - Formik Components</CardTitle>
@@ -144,7 +153,9 @@ function App() {
               initialValues={{
                 nombre: '',
                 apellido: '',
-                correo: ''
+                correo: '',
+                mejorwhisky: '',
+                radio: ''
               }}
               validate={validate}
               onSubmit={values => {
@@ -154,53 +165,35 @@ function App() {
               <Form onSubmit={formik.handleSubmit}>
                 <div className='mb-6'>
 
-                  <div className='flex flex-col mb-5 mt-1 select-none'>
-                    <label className='ml-4 mb-2 text-sm font-bold text-slate-400'>Nombre</label>
-                    
-                    <ErrorMessage 
-                      className='text-red-700'
-                      name='nombre'
-                    />
-                    
-                    <Field 
-                      className='rounded-lg bg-slate-800 py-2 px-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:italic placeholder:text-slate-600 autofill:text-slate-600 autofill:bg-slate-800'
-                      placeholder='Juan'
-                      name='nombre' 
-                      type='text'
-                    />
-                  </div>
+                  <TextInput
+                    name='nombre'
+                    label='Nombre'  
+                  />
 
-                  <div className='flex flex-col mb-5 mt-1 select-none'>
-                    <label className='ml-4 mb-2 text-sm font-bold text-slate-400'>Apellido</label>
+                  <TextInput
+                    name='apellido'
+                    label='Apellido'  
+                  />
 
-                    <ErrorMessage 
-                      className='text-red-700'
-                      name='apellido'
-                    />
-                    
+                  <TextInput
+                    name='correo'
+                    label='Correo'  
+                  />
 
-                    <Field 
-                      className='rounded-lg bg-slate-800 py-2 px-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:italic placeholder:text-slate-600 autofill:text-slate-600 autofill:bg-slate-800'
-                      placeholder='Rodriguez'
-                      name='apellido' 
-                      type='text'
-                    />
-                  </div>
-                  
-                  <div className='flex flex-col mb-5 mt-1 select-none'>
-                    <label className='ml-4 mb-2 text-sm font-bold text-slate-400'>Correo</label>
 
-                    <ErrorMessage 
-                      className='text-red-700'
-                      name='correo'
-                    />
+                  <CheckboxInput name='erigey'>Eri gey</CheckboxInput>
 
-                    <Field 
-                      className='rounded-lg bg-slate-800 py-2 px-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:italic placeholder:text-slate-600 autofill:text-slate-600 autofill:bg-slate-800'
-                      placeholder='juanrodriguez@mail.com'
-                      name='correo' 
-                      type='text'
-                    />
+                  <SelectInput label='Mejor Whisky del mundo' name='mejorwhisky' >
+                    <option value=''>Seleccione el mejor whisky del mundo</option>
+                    <option value='bluelabel'>Blue label de Jonny Walker</option>
+                  </SelectInput>
+
+                  <div>
+                    <span className='text-slate-400' >"Blue label eh un elissir"</span>
+                    <ErrorMessage name='radio'/>
+                    <RadioInput name='radio' value='endesacuerdo' label='En Desacuerdo'/>
+                    <RadioInput name='radio' value='medaigual' label='Me da Igual'/>
+                    <RadioInput name='radio' value='completamentedecuerdo' label='Completamente Deacuerdo'/>
                   </div>
 
                 </div>
